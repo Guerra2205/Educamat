@@ -1,5 +1,5 @@
 /* ============ SERVICE WORKER do EducaMat ============ */
-const NOME_CACHE = "educamat-v1";
+const NOME_CACHE = "educamat-v2";
 const ARQUIVOS = [
   "./", "index.html", "estilo.css", "manifest.json",
   "js/questoes.js", "js/modelo.js", "js/sessao.js", "js/notificacoes.js", "js/app.js", "js/login.js",
