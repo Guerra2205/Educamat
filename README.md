@@ -1,5 +1,5 @@
 # EducaMat
-conferira: https://guerra2205.github.io/Educamat/
+confira: https://guerra2205.github.io/Educamat/
 
 Site que analisa o resultado de exercícios de matemática e mostra ao estudante
 quais assuntos ele deve revisar primeiro.
