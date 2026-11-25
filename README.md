@@ -20,9 +20,17 @@ quais assuntos ele deve revisar primeiro.
 | `js/sessao.js` | Contas e sessão do login (salvas no navegador) |
 | `js/app.js` | Sorteio, telas, leitura das respostas e botões |
 | `js/login.js` | Tela de login, abas e botão Sair |
+| `js/conta.js` | Minha conta (perfil, segurança, preferências, excluir) e recuperação de senha |
 | `js/notificacoes.js` | Avisos do sistema ao concluir o teste |
 | `sw.js` | Service worker: avisos, modo offline e clique na notificação |
 | `manifest.json` e `icones/` | Dados para instalar o site como app |
+
+## Minha conta e recuperação de senha
+
+- **Minha conta** (botão na barra de cima): perfil (nome e foto), troca de e-mail com código de confirmação, troca de senha (pede a atual), encerrar outras sessões, preferências (tema e aviso ao concluir o teste) e excluir conta (pede a senha).
+- **Esqueceu a senha?** (na tela de login): o usuário informa o e-mail, recebe um código de 6 dígitos e cria a nova senha.
+- Segurança aplicada: senha só como hash com sal; código com validade de 30 minutos, uso único e invalidado após 5 erros; resposta igual exista a conta ou não; limite de 3 pedidos a cada 15 minutos; trocar a senha encerra as outras sessões.
+- **Limite importante:** o site não tem servidor, então o e-mail é **simulado**. O código aparece no botão "Abrir e-mail de demonstração". Para enviar e-mail de verdade, troque o corpo da função `enviarEmail` em `js/sessao.js` por uma chamada ao seu backend ou a um serviço como EmailJS ou Resend. Com contas e códigos guardados no navegador, a proteção real só existe com um servidor.
 
 ## Como funciona
 

@@ -1,0 +1,275 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
+<title>EducaMat – Descubra o que revisar primeiro em matemática</title>
+<link href="https://fonts.googleapis.com/css2?family=Bricolage+Grotesque:wght@600;800&family=Atkinson+Hyperlegible:wght@400;700&display=swap" rel="stylesheet">
+<link rel="manifest" href="manifest.json">
+<meta name="theme-color" content="#14253d">
+<link rel="icon" href="icones/icone-192.png">
+<link rel="stylesheet" href="estilo.css">
+
+</head>
+<body>
+<main>
+
+<!-- ============ TELA DE LOGIN ============ -->
+<section id="tela-login" hidden>
+  <header>
+    <h1>Edu<span>Mat</span></h1>
+    <p class="lead">Entre para descobrir qual assunto de matemática você deve revisar primeiro.</p>
+  </header>
+  <div class="cartao login">
+    <div class="abas" role="tablist">
+      <button type="button" class="aba" id="aba-entrar" role="tab" aria-selected="true">Entrar</button>
+      <button type="button" class="aba" id="aba-criar" role="tab" aria-selected="false">Criar conta</button>
+    </div>
+    <form id="formulario-login" novalidate>
+      <div class="campo" id="campo-nome" hidden>
+        <label for="nome">Nome</label>
+        <input id="nome" type="text" autocomplete="name">
+      </div>
+      <div class="campo">
+        <label for="email">E-mail</label>
+        <input id="email" type="email" autocomplete="email">
+      </div>
+      <div class="campo">
+        <label for="senha">Senha</label>
+        <input id="senha" type="password" autocomplete="current-password">
+        <small id="dica-senha" hidden>Use pelo menos 6 caracteres.</small>
+      </div>
+      <p id="mensagem-login" class="aviso" role="alert" hidden></p>
+      <button type="submit" id="botao-login">Entrar</button>
+      <p class="link-esqueci"><a href="#" id="link-esqueci">Esqueceu a senha?</a></p>
+    </form>
+    <p class="nota">Este login é uma demonstração: as contas ficam salvas só neste navegador, não em um servidor.</p>
+  </div>
+</section>
+
+<!-- ============ RECUPERAR SENHA ============ -->
+<section id="tela-recuperar" hidden>
+  <header>
+    <h1>Edu<span>Mat</span></h1>
+    <p class="lead">Esqueceu a senha? Informe seu e-mail e enviaremos um código para criar uma nova.</p>
+  </header>
+  <div class="cartao login">
+    <form id="form-recuperar-pedido" novalidate>
+      <h2>Recuperar senha</h2>
+      <div class="campo">
+        <label for="rec-email">E-mail</label>
+        <input id="rec-email" type="email" autocomplete="email" placeholder="seuemail@exemplo.com">
+      </div>
+      <p id="msg-rec-pedido" class="aviso" role="alert" hidden></p>
+      <button type="submit">Enviar código de recuperação</button>
+    </form>
+
+    <form id="form-recuperar-codigo" novalidate hidden>
+      <h2>Criar nova senha</h2>
+      <p id="msg-rec-enviado" class="sucesso" role="status"></p>
+      <div class="campo">
+        <label for="rec-codigo">Código de 6 dígitos</label>
+        <input id="rec-codigo" type="text" inputmode="numeric" maxlength="6" autocomplete="one-time-code">
+      </div>
+      <div class="campo">
+        <label for="rec-nova">Nova senha</label>
+        <input id="rec-nova" type="password" autocomplete="new-password">
+        <small>Use pelo menos 6 caracteres.</small>
+      </div>
+      <div class="campo">
+        <label for="rec-confirma">Repita a nova senha</label>
+        <input id="rec-confirma" type="password" autocomplete="new-password">
+      </div>
+      <p id="msg-rec-codigo" class="aviso" role="alert" hidden></p>
+      <button type="submit">Salvar nova senha</button>
+    </form>
+
+    <div class="caixa-email" id="caixa-recuperar" hidden></div>
+    <p class="nota">Como o EducaMat ainda não tem servidor, o e-mail é simulado: o código aparece na caixa de demonstração abaixo.</p>
+    <div class="acoes">
+      <button type="button" class="secundario" id="rec-ver-caixa">Abrir e-mail de demonstração</button>
+      <button type="button" class="secundario" id="rec-voltar">Voltar ao login</button>
+    </div>
+  </div>
+</section>
+
+<!-- ============ CONFIGURAÇÕES DA CONTA ============ -->
+<section id="tela-conta" hidden>
+  <div class="barra-usuario">
+    <h2>Minha conta</h2>
+    <button type="button" class="secundario" id="conta-voltar">Voltar ao teste</button>
+  </div>
+  <div class="abas abas-conta" role="tablist">
+    <button type="button" class="aba" role="tab" data-aba="perfil" aria-selected="true">Meu perfil</button>
+    <button type="button" class="aba" role="tab" data-aba="seguranca" aria-selected="false">Segurança</button>
+    <button type="button" class="aba" role="tab" data-aba="preferencias" aria-selected="false">Preferências</button>
+    <button type="button" class="aba" role="tab" data-aba="excluir" aria-selected="false">Excluir conta</button>
+  </div>
+
+  <!-- Meu perfil -->
+  <div class="cartao" data-painel="perfil">
+    <form id="form-perfil" novalidate>
+      <div class="perfil-foto">
+        <img id="perfil-avatar" class="avatar avatar-grande" alt="Foto de perfil" hidden>
+        <span id="perfil-inicial" class="avatar avatar-grande" aria-hidden="true"></span>
+        <div>
+          <label for="perfil-foto" class="botao-arquivo">Escolher foto</label>
+          <input id="perfil-foto" type="file" accept="image/*" class="so-leitor">
+          <button type="button" class="secundario" id="perfil-remover-foto">Remover foto</button>
+        </div>
+      </div>
+      <div class="campo">
+        <label for="perfil-nome">Nome</label>
+        <input id="perfil-nome" type="text" autocomplete="name">
+      </div>
+      <p id="msg-perfil" role="alert" hidden></p>
+      <button type="submit">Salvar perfil</button>
+    </form>
+
+    <hr>
+    <form id="form-email" novalidate>
+      <h3>E-mail</h3>
+      <p class="lead">E-mail atual: <strong id="email-atual"></strong>. Para trocar, enviamos um código ao novo endereço e a mudança só vale depois de confirmada.</p>
+      <div class="campo">
+        <label for="novo-email">Novo e-mail</label>
+        <input id="novo-email" type="email" autocomplete="email">
+      </div>
+      <div class="campo">
+        <label for="email-senha">Sua senha</label>
+        <input id="email-senha" type="password" autocomplete="current-password">
+      </div>
+      <p id="msg-email" role="alert" hidden></p>
+      <button type="submit">Enviar código ao novo e-mail</button>
+    </form>
+
+    <form id="form-email-codigo" novalidate hidden>
+      <div class="campo">
+        <label for="email-codigo">Código enviado ao novo e-mail</label>
+        <input id="email-codigo" type="text" inputmode="numeric" maxlength="6" autocomplete="one-time-code">
+      </div>
+      <p id="msg-email-codigo" role="alert" hidden></p>
+      <div class="acoes">
+        <button type="submit">Confirmar novo e-mail</button>
+        <button type="button" class="secundario" id="email-caixa">Abrir e-mail de demonstração</button>
+      </div>
+      <div class="caixa-email" id="caixa-conta" hidden></div>
+    </form>
+  </div>
+
+  <!-- Segurança -->
+  <div class="cartao" data-painel="seguranca" hidden>
+    <form id="form-senha" novalidate>
+      <h3>Alterar senha</h3>
+      <div class="campo">
+        <label for="senha-atual">Senha atual</label>
+        <input id="senha-atual" type="password" autocomplete="current-password">
+      </div>
+      <div class="campo">
+        <label for="senha-nova">Nova senha</label>
+        <input id="senha-nova" type="password" autocomplete="new-password">
+        <small>Use pelo menos 6 caracteres.</small>
+      </div>
+      <div class="campo">
+        <label for="senha-confirma">Repita a nova senha</label>
+        <input id="senha-confirma" type="password" autocomplete="new-password">
+      </div>
+      <p id="msg-senha" role="alert" hidden></p>
+      <button type="submit">Alterar senha</button>
+    </form>
+    <hr>
+    <h3>Sessões</h3>
+    <p class="lead">Você está conectado neste navegador. Ao alterar a senha, as outras sessões são encerradas automaticamente. Também é possível encerrá-las agora.</p>
+    <p id="msg-sessoes" role="alert" hidden></p>
+    <div class="acoes"><button type="button" class="secundario" id="botao-outras-sessoes">Encerrar outras sessões</button></div>
+  </div>
+
+  <!-- Preferências -->
+  <div class="cartao" data-painel="preferencias" hidden>
+    <h3>Tema</h3>
+    <div class="campo">
+      <label for="pref-tema">Aparência do site</label>
+      <select id="pref-tema">
+        <option value="auto">Automático (segue o aparelho)</option>
+        <option value="light">Claro</option>
+        <option value="dark">Escuro</option>
+      </select>
+    </div>
+    <h3>Notificações</h3>
+    <label class="marcador"><input type="checkbox" id="pref-avisos"> Avisar quando eu concluir um teste</label>
+    <p class="nota">Para receber os avisos, autorize as notificações do navegador com o botão <strong>Ativar avisos</strong> na barra de cima.</p>
+    <p id="msg-prefs" class="sucesso" role="status" hidden></p>
+  </div>
+
+  <!-- Excluir conta -->
+  <div class="cartao cartao-perigo" data-painel="excluir" hidden>
+    <form id="form-excluir" novalidate>
+      <h3>Excluir minha conta</h3>
+      <p class="lead">Isso apaga sua conta deste navegador e não pode ser desfeito. Digite sua senha para confirmar.</p>
+      <div class="campo">
+        <label for="excluir-senha">Sua senha</label>
+        <input id="excluir-senha" type="password" autocomplete="current-password">
+      </div>
+      <p id="msg-excluir" role="alert" hidden></p>
+      <button type="submit" class="perigo">Excluir minha conta para sempre</button>
+    </form>
+  </div>
+</section>
+
+<!-- ============ TELA DO TESTE (só aparece depois do login) ============ -->
+<div id="tela-teste" hidden>
+<div class="barra-usuario">
+  <span class="usuario-info">
+    <img id="barra-avatar" class="avatar" alt="" hidden>
+    <span id="saudacao"></span>
+  </span>
+  <div class="acoes-usuario">
+    <button type="button" class="secundario" id="botao-conta">Minha conta</button>
+    <button type="button" class="secundario" id="botao-avisos" hidden>Ativar avisos</button>
+    <button type="button" class="secundario" id="botao-sair">Sair</button>
+  </div>
+</div>
+
+<header>
+  <h1>Edu<span>Mat</span></h1>
+  <p class="lead">Muita gente estuda matemática sem saber por onde começar. Responda <span id="total-questoes">18</span> exercícios curtos e descubra qual assunto você deve revisar primeiro.</p>
+</header>
+
+<!-- ============ TESTE ============ -->
+<section id="teste">
+  <h2>Exercícios</h2>
+  <p class="lead">Escolha uma resposta em cada questão. A cada novo teste, os assuntos e as questões são sorteados.</p>
+  <div id="lista-topicos"></div>
+  <div class="acoes">
+    <button id="botao-analisar">Analisar meus resultados</button>
+    <span id="aviso" class="aviso" role="alert" hidden></span>
+  </div>
+</section>
+
+<!-- ============ RESULTADO ============ -->
+<section id="resultado" hidden aria-live="polite">
+  <h2>Seu diagnóstico</h2>
+  <p class="lead" id="resumo"></p>
+  <div id="painel"></div>
+
+  <h3 style="margin-top:32px">Ordem de revisão</h3>
+  <ol class="fila" id="fila"></ol>
+
+  <h3 style="margin-top:32px">Como o sistema decidiu</h3>
+  <p class="lead">Para cada assunto, uma pequena árvore de decisão olha quantas questões você acertou:</p>
+  <div class="arvore" id="arvore"></div>
+
+  <div class="acoes"><button class="secundario" id="botao-refazer">Refazer o teste</button></div>
+</section>
+</div>
+
+</main>
+
+<script src="js/questoes.js"></script>
+<script src="js/modelo.js"></script>
+<script src="js/sessao.js"></script>
+<script src="js/notificacoes.js"></script>
+<script src="js/conta.js"></script>
+<script src="js/app.js"></script>
+<script src="js/login.js"></script>
+</body>
+</html>
